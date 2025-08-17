@@ -10,8 +10,9 @@ import { useState } from "react";
 const MercuryWriteReflection = () => {
     const navigation = useNavigation();
     
-    const [motionTask, setMotionTask] = useState("");
-    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+    const [whatHelps, setWhatHelps] = useState("");
+    const [whatMinds, setWhatMinds] = useState("");
+    const [reflDate, setReflDate] = useState(new Date().toISOString().split('T')[0]);
     
     const [showCalendar, setShowCalendar] = useState(false);
     
@@ -24,36 +25,33 @@ const MercuryWriteReflection = () => {
     };
 
     const handleDateSelect = (day) => {
-        setStartDate(day.dateString)
+        setReflDate(day.dateString)
         setShowCalendar(false);
     };
 
     const handleSaveTask = async () => {
-        if (!motionTask.trim() || 
-            selectedCategory === "Select Category" || 
-            selectedFrequency === "Select Frequency") {
+        if (!whatHelps.trim() || 
+            !whatMinds.trim()) {
             alert("Please fill all required fields");
             return;
         }
-
-        const today = new Date().toISOString().split('T')[0];
-        const start = new Date(startDate);
         
         try {
             const storedTasks = await AsyncStorage.getItem('SAVED_REFLECTIONS_MOTION');
             const tasks = storedTasks ? JSON.parse(storedTasks) : [];
 
-            const newTask = {
+            const newReflection = {
                 id: Date.now().toString(),
-                title: motionTask.trim(),
-                startDate,
+                whatHelps: whatHelps.trim(),
+                whatMinds: whatMinds.trim(),
+                reflDate,
                 createdAt: new Date().toISOString()
             };
 
-            const updatedTasks = [...tasks, newTask];
+            const updatedTasks = [...tasks, newReflection];
             await AsyncStorage.setItem('SAVED_REFLECTIONS_MOTION', JSON.stringify(updatedTasks));
             
-            console.log("Task saved successfully:", newTask);
+            console.log("Task saved successfully:", newReflection);
             navigation.goBack();
         } catch (error) {
             console.error("Error saving task:", error);
@@ -74,12 +72,26 @@ const MercuryWriteReflection = () => {
 
             <ScrollView 
                 style={{ width: '100%', marginTop: 20 }}
-                contentContainerStyle={{ paddingBottom: 100 }}
             >
+
+                <TouchableOpacity 
+                    style={[commonMotion.setBtn, {flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 16, paddingHorizontal: 20, marginBottom: 12}]}
+                    onPress={() => setShowCalendar(true)}
+                >
+                    <Text style={commonMotion.textBlue}>Reflection of the Day</Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style={commonMotion.textBlue}>{formatDisplayDate(reflDate)}</Text>
+                        <Image 
+                            source={calendarArrow} 
+                            style={{width: 24, height: 24, resizeMode: 'contain', transform: [{ rotate: '180deg' }]}} 
+                        />
+                    </View>
+                </TouchableOpacity>
+
                 <Text style={formMotion.motionLabel}>What would help you stay in motion today?</Text>
                 <TextInput
-                    value={motionTask}
-                    onChangeText={setMotionTask}
+                    value={whatHelps}
+                    onChangeText={setWhatHelps}
                     style={formMotion.motionInput}
                     placeholder="Enter your task"
                     placeholderTextColor="#818181"
@@ -88,42 +100,27 @@ const MercuryWriteReflection = () => {
 
                 <Text style={formMotion.motionLabel}>Write what’s on your mind</Text>
                 <TextInput
-                    value={motionTask}
-                    onChangeText={setMotionTask}
+                    value={whatMinds}
+                    onChangeText={setWhatMinds}
                     style={[formMotion.motionInput, { height: 155, borderRadius: 20}]}
                     placeholder="Enter your task"
                     placeholderTextColor="#818181"
-                    autoFocus
+                    multiline
                 />
-
-                <TouchableOpacity 
-                    style={[commonMotion.setBtn, {flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 16, paddingHorizontal: 20, marginBottom: 12}]}
-                    onPress={() => {
-                        setCalendarType('start');
-                        setShowCalendar(true);
-                    }}
-                >
-                    <Text style={commonMotion.textBlue}>Start Date</Text>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={commonMotion.textBlue}>{formatDisplayDate(startDate)}</Text>
-                        <Image 
-                            source={calendarArrow} 
-                            style={{width: 24, height: 24, resizeMode: 'contain', transform: [{ rotate: '180deg' }]}} 
-                        />
-                    </View>
-                </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[commonMotion.button, { marginTop: 40 }]}
                     onPress={handleSaveTask}
                 >
                     <LinearGradient
-                        colors={(motionTask) ? yellowGradient : blueGradient}
+                        colors={(whatHelps && whatMinds) ? yellowGradient : blueGradient}
                         style={commonMotion.gradient}
                     >
                         <Text style={commonMotion.buttonText}>Add Task</Text>
                     </LinearGradient>
                 </TouchableOpacity>
+
+                <View style={{height: 200}} />
             </ScrollView>
 
             <Modal
@@ -147,10 +144,10 @@ const MercuryWriteReflection = () => {
                         padding: 20,
                     }}>
                         <Calendar
-                            current={calendarType === 'start' ? startDate : endDate}
+                            current={reflDate}
                             onDayPress={handleDateSelect}
                             markedDates={{
-                                [calendarType === 'start' ? startDate : endDate]: {
+                                [reflDate]: {
                                     selected: true, 
                                     selectedColor: '#F4DF13',
                                     selectedTextColor: '#0D1F58'

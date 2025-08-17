@@ -9,7 +9,7 @@ interface GlobalMercuryMotionProps {
 
 const GlobalMercuryMotion: React.FC<GlobalMercuryMotionProps> = ({ ismotion, motioncomp }) => {
     return (
-        <ImageBackground source={mercurybackground as ImageSourcePropType} style={{flex: 1}}>
+        <ImageBackground source={mercurybackground as ImageSourcePropType} style={{flex: 1, backgroundColor: '#0F2767'}}>
             <View style={{flex: 1}}>
                 <View style={{width: '100%', 
                         height: '100%'}}>{motioncomp}</View>

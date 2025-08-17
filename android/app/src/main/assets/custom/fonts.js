@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-export const FONT = {
+export const FONTS = {
     POPPINS: Platform.select({
         ios: 'Poppins Regular',
         android: 'Poppins-Regular',

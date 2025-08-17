@@ -253,7 +253,7 @@ const MercuryOverTime = () => {
                             Discipline is building under the surface
                         </Text>
 
-                        <View style={{height: 50}} />
+                        <View style={{height: 250}} />
                     </ScrollView>
                 )}
             </ScrollView>

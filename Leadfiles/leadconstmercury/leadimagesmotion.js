@@ -15,7 +15,7 @@ export const backMotion = require('../../assets/app-decor/back-motion.png');
 export const doneTask = require('../../assets/app-decor/done-task.png');
 export const overdueTask = require('../../assets/app-decor/overdue-task.png');
 export const initialTask = require('../../assets/app-decor/initial-task.png');
-
+export const shareMotion = require('../../assets/app-decor/share-motion.png');
 
 // other
 

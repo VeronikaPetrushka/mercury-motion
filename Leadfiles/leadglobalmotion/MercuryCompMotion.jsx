@@ -97,10 +97,12 @@ export const MercuryNewOrbitTaskmotion = () => {
     )
 };
 
-export const MercuryReadInsightSpacenmotion = () => {
+export const MercuryReadInsightSpacenmotion = ({ route }) => {
+    const { insight } = route.params;
+
     return (
         <GlobalMercuryMotion
-            motioncomp={<MercuryReadInsightSpace />}
+            motioncomp={<MercuryReadInsightSpace insight={insight} />}
         />
     )
 };

@@ -58,12 +58,7 @@ const MercuryOrbitsInfo = () => {
             <Animated.View style={{ opacity: imageFadeAnim, width: '100%' }}>
                 <Image 
                     source={twoPlanets} 
-                    style={{ 
-                        width: '100%', 
-                        height: 500, 
-                        resizeMode: 'contain', 
-                        marginBottom: 20 
-                    }} 
+                    style={commonMotion.twoPlanetsImage} 
                 />
             </Animated.View>
             

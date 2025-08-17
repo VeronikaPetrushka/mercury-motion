@@ -141,7 +141,7 @@ export const commonMotion = StyleSheet.create({
 
     twoPlanetsImage: {
         width: '100%',
-        height: height * 0.4,
+        height: height * 0.45,
         resizeMode: 'contain',
         marginBottom: 10
     }
@@ -210,8 +210,8 @@ export const motionPanel = StyleSheet.create({
     },
 
     button: {
-        width: 72,
-        height: 72,
+        width: 65,
+        height: 65,
         borderRadius: 300,
         alignItems: 'center',
         justifyContent: 'center'
@@ -222,5 +222,93 @@ export const motionPanel = StyleSheet.create({
         height: 24,
         resizeMode: 'contain'
     }
+
+});
+
+export const reflectionMotion = StyleSheet.create({
+
+    poster: {
+        width: '100%', 
+        height: 200, 
+        resizeMode: 'cover', 
+        borderRadius: 50, 
+        marginBottom: 8
+    },
+
+    title: {
+        fontSize: 18,
+        fontWeight: '500',
+        fontFamily: FONTS.POPPINS,
+        color: '#fff',
+        marginBottom: 3
+    },
+
+    desc: {
+        fontSize: 13,
+        fontWeight: '300',
+        fontFamily: FONTS.POPPINS,
+        color: '#4D9EFF',
+    },
+
+    customContainer: {
+        width: '100%',
+        padding: 16,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#2D4FA5',
+        marginBottom: 12,
+        backgroundColor: '#0D1F58'
+    }
+
+});
+
+
+export const styles = StyleSheet.create({
+
+    progressBarContainer: {
+        width: '100%',
+        padding: 20,
+    },
+
+    progressBarBackground: {
+        height: 10,
+        width: '100%',
+        backgroundColor: '#4D9EFF',
+        borderRadius: 5,
+        overflow: 'hidden',
+    },
+
+    progressBarFill: {
+        height: '100%',
+        backgroundColor: '#F4DF13',
+        borderRadius: 5,
+    },
+
+    scoreText: {
+        color: 'white',
+        fontSize: 16,
+        marginTop: 10,
+        textAlign: 'center',
+        fontFamily: 'Montserrat',
+    },
+
+    shine: {
+        position: 'absolute',
+        width: 150,
+        height: 150,
+        resizeMode: 'contain',
+    },
+
+    moonContainer: {
+        position: 'absolute',
+        width: 100,
+        height: 100,
+    },
+
+    moon: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
+    },
 
 });
